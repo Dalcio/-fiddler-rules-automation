@@ -1,4 +1,4 @@
-# Fiddler create a rules automation
+# Fiddler create rules automation
 
 create a set of fiddler rules easly
 
