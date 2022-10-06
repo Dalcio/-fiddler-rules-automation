@@ -1,4 +1,4 @@
-const { statSync, readdirSync, writeFile } = require("fs");
+const { statSync, readdirSync, createWriteStream } = require("fs");
 
 const FILES_DIR = "";
 const CLOUD_PATH = "";
@@ -14,7 +14,7 @@ const rulesBuilder = (rules = []) => `
 <?xml version="1.0" encoding="utf-8"?>
 <AutoResponder LastSave="2022-10-06T09:11:35.5287626+01:00" FiddlerVersion="5.0.20211.51073">
   <State Enabled="true" AcceptAllConnects="false" Fallthrough="true" UseLatency="false">
-    ${rules.map((rule) => rule)}
+    ${rules.join("")}
   </State>
 </AutoResponder>`;
 
@@ -56,10 +56,11 @@ const getDirFiles = (dirName, files = []) => {
  */
 
 const createFiddlerRulesFarxFile = (content) => {
-  writeFile("fiddler-rules.farx", content, function (err) {
-    if (err) throw err;
-    console.log("done");
-  });
+  writeStream = createWriteStream("fiddler-rules.farx");
+  writeStream.write(content);
+  writeStream.end();
+
+  console.log("done");
 };
 
 const main = () => {
